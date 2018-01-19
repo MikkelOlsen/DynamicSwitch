@@ -1,0 +1,18 @@
+body {
+    background-color: lightgray;
+    font-family: 'Josefin Slab', serif;
+}
+
+.navbar-brand::first-letter {
+    color:Red;
+}
+
+nav.navbar a {
+    color: lightgray;
+}
+
+nav.navbar {
+    font-weight: bold;
+    background-color: rgba(48, 45, 45, 0.5);
+    border-bottom: 2px solid red;
+}
