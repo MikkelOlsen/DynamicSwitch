@@ -1,5 +1,6 @@
 <?php
 exec('git log -1',$line);
+
 if(!file_exists('./config.php')) {
     $result = '<form method="post">
                     <div class="form-group">
@@ -120,7 +121,19 @@ if(!file_exists('./config.php')) {
 <body>
     <div class="container">
         <div class="main-content">
-            <h1>Website Installer - <?= $line[4] ?></h1>
+                <?php include_once './version.php';
+                    if(filesize('./version.php') == 0) {
+                        file_put_contents('./version.php', '<?php $version = "'.$line[4].'" ?><h1>Website Installer - <?= $version ?></h1>');
+                    } else {
+                        if($version !== $line[4]) {
+                            $current = $version;
+                            file_put_contents('./version.php', '<?php $version = "'.$current.'" ?><h1>Website Installer - <?= $version ?></h1><div class="alert alert-warning">Der findes en nyere version</div>');
+                        } else {
+                            $current = $line[4];
+                            file_put_contents('./version.php', '<?php $version = "'.$current.'" ?><h1>Website Installer - <?= $version ?></h1>');
+                        }  
+                    }
+                ?>
                 <?= $result ?>
         </div>
     </div>

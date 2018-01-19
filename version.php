@@ -1,0 +1,1 @@
+<?php $version = "    V 0.1.1 (Alpha)" ?><h1>Website Installer - <?= $version ?></h1>
