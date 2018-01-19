@@ -1,4 +1,5 @@
 <?php
+exec('git log -1',$line);
 if(!file_exists('./config.php')) {
     $result = '<form method="post">
                     <div class="form-group">
@@ -58,6 +59,7 @@ if(!file_exists('./config.php')) {
 <body>
     <div class="container">
         <div class="main-content">
+            <h1>Website Installer - <?= $line[4] ?></h1>
                 <?= $result ?>
         </div>
     </div>
