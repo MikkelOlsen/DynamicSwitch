@@ -35,9 +35,6 @@
             $get = $security->secGetInputArray(INPUT_GET);
             if(isset($get['p']) && !empty($get['p'])) {
                 switch ($get['p']) {
-                    case 'newpage':
-                        include_once './partials/newpage.php';
-                        break;
                     case ''.$switch->page_link.'':
                         include_once './partials/'.$switch->pagesetting_filename.'.php';
                         break;

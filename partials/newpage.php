@@ -10,11 +10,13 @@
         $pageName = $validate->characters($post['pageName'], 1, 25) ? $post['pageName'] : $error['pageName'] = '<div class="alert alert-danger">Sidenavnet skal være mellem 1 og 25 tegn.</div>';
         if(sizeof($error) == 0) {
             $result = $pages->createPage($pageName);
-            if($result == true) {
+            var_dump($result);
+            if($result === true) {
                 $_SESSION['success'] = '<div class="alert alert-success">Siden <b>'.$pageName.'</b> er oprettet!</div>';
                 header('Location: index.php?p=newpage');
             } else {
-                $success = $result;
+                $_SESSION['success'] = $result;
+                header('Location: index.php?p=newpage');
             }
         }
     }
