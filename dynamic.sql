@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Vært: 127.0.0.1
--- Genereringstid: 19. 01 2018 kl. 09:10:21
+-- Genereringstid: 19. 01 2018 kl. 11:54:03
 -- Serverversion: 10.1.26-MariaDB
 -- PHP-version: 7.1.8
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `dynamic`
 --
+CREATE DATABASE IF NOT EXISTS `dynamic` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `dynamic`;
 
 -- --------------------------------------------------------
 
@@ -60,6 +62,13 @@ CREATE TABLE `pages` (
   `fk_pageSettings` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Data dump for tabellen `pages`
+--
+
+INSERT INTO `pages` (`page_id`, `page_title`, `page_link`, `fk_pageContent`, `fk_pageSettings`) VALUES
+(22, 'New Page', 'newpage', NULL, 23);
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +79,13 @@ CREATE TABLE `pagesettings` (
   `pagesettings_id` int(11) NOT NULL,
   `pagesetting_filename` varchar(126) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Data dump for tabellen `pagesettings`
+--
+
+INSERT INTO `pagesettings` (`pagesettings_id`, `pagesetting_filename`) VALUES
+(23, 'newpage');
 
 --
 -- Begrænsninger for dumpede tabeller
@@ -120,12 +136,12 @@ ALTER TABLE `pageimage`
 -- Tilføj AUTO_INCREMENT i tabel `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `page_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `page_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- Tilføj AUTO_INCREMENT i tabel `pagesettings`
 --
 ALTER TABLE `pagesettings`
-  MODIFY `pagesettings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `pagesettings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- Begrænsninger for dumpede tabeller
 --
