@@ -1,1 +1,14 @@
-<?php $version = "    V 0.1.1 (Alpha)" ?><h1>Website Installer - <?= $version ?></h1>
+<?php 
+    exec('git log -1',$line);
+
+    $myVersion = "    V 0.1.2 (Alpha)";
+    $newVersion = $line[4];
+    if($myVersion !== $newVersion) {
+        $versionError = '<div class="alert alert-warning">Der findes en nyere version</div>';
+    }
+
+
+?>
+
+
+<h1>Website Installer - <?= $myVersion ?></h1><?= @$versionError ?>
