@@ -136,12 +136,12 @@ ALTER TABLE `pageimage`
 -- Tilføj AUTO_INCREMENT i tabel `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `page_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `page_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Tilføj AUTO_INCREMENT i tabel `pagesettings`
 --
 ALTER TABLE `pagesettings`
-  MODIFY `pagesettings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `pagesettings_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Begrænsninger for dumpede tabeller
 --

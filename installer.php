@@ -23,12 +23,14 @@ if(!file_exists('./config.php')) {
     if(isset($_POST['submit'])) {
         
         try {
-            $dbh = new PDO('mysql:host='.$_POST['db_host'].';dbname='.$_POST['db_name'].'', $_POST['db_user'], $_POST['db_pass']);
+            $dbName = strtolower($_POST['db_name']);
+            $dbName = str_replace(' ', '', $dbName);
+            $dbh = new PDO('mysql:host='.$_POST['db_host'].';dbname='.$dbName.'', $_POST['db_user'], $_POST['db_pass']);
             $configFile = fopen('./config.php', 'w') or die('Unable to create config file.');
             $configTxt = '<?php';
             $configTxt .= "
                 define('_DB_HOST_', '".$_POST['db_host']."');
-                define('_DB_NAME_', '".$_POST["db_name"]."');
+                define('_DB_NAME_', '".$dbName."');
                 define('_DB_USER_', '".$_POST["db_user"]."');
                 define('_DB_PASSWORD_', '".$_POST["db_pass"]."');
                 define('_DB_PREFIX_', '');
@@ -51,16 +53,25 @@ if(!file_exists('./config.php')) {
         fwrite($configFile, $configTxt);
         fclose($configFile);
 
+        require_once './config.php';
+        $installer = new Installer($db);
+        $installer->createTables();
+
+        header('Location: installer.php');
+
         } catch (PDOException $e) {
+            $dbName = strtolower($_POST['db_name']);
+            $dbName = str_replace(' ', '', $dbName);
             $dbh = new PDO('mysql:host='.$_POST['db_host'].';', $_POST['db_user'], $_POST['db_pass']);
-            $dbSql = "CREATE DATABASE IF NOT EXISTS `".$_POST['db_name']."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+            $dbSql = "CREATE DATABASE IF NOT EXISTS `".$dbName."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
             $stmt = $dbh->prepare($dbSql);
             $stmt->execute();
+            
             $configFile = fopen('./config.php', 'w') or die('Unable to create config file.');
             $configTxt = '<?php';
             $configTxt .= "
                 define('_DB_HOST_', '".$_POST['db_host']."');
-                define('_DB_NAME_', '".$_POST["db_name"]."');
+                define('_DB_NAME_', '".$dbName."');
                 define('_DB_USER_', '".$_POST["db_user"]."');
                 define('_DB_PASSWORD_', '".$_POST["db_pass"]."');
                 define('_DB_PREFIX_', '');
@@ -84,12 +95,11 @@ if(!file_exists('./config.php')) {
         fclose($configFile);
         }
         
+        require_once './config.php';
+        $installer = new Installer($db);
+        $installer->createTables();
+
         header('Location: installer.php');
-
-        // $installer = new Installer($db);
-
-        // $dbCheck = $installer->createDatabase($_POST['db_name']);
-
     }
 } else {
     $result = '<div class="alert alert-success">Dit website er allerede installeret!<br> Klik <a href="index.php">her</a> for at komme dertil!</div>';
