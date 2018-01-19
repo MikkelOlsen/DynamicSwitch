@@ -1,4 +1,8 @@
 <?php
+if(!file_exists('./config.php')) { 
+    header('Location: installer.php');
+}
+
         ob_start();
         session_start();
         require_once './config.php';
@@ -7,7 +11,6 @@
         $pages = new Pages($db);
 
         $menu = $pages->getLinksForMenu();
-        $switch = $pages->dynamicSwitch($_GET['p']);
 
     ?>
 
@@ -34,6 +37,7 @@
          if($security->secGetMethod('GET') || $security->secGetMethod('POST')) {
             $get = $security->secGetInputArray(INPUT_GET);
             if(isset($get['p']) && !empty($get['p'])) {
+                $switch = $pages->dynamicSwitch($_GET['p']);
                 switch ($get['p']) {
                     case ''.$switch->page_link.'':
                         include_once './partials/'.$switch->pagesetting_filename.'.php';
