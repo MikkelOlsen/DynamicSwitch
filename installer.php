@@ -84,7 +84,7 @@ if(!file_exists('./config.php')) {
         fclose($configFile);
         }
         
-        
+        header('Location: installer.php');
 
         // $installer = new Installer($db);
 
@@ -92,7 +92,7 @@ if(!file_exists('./config.php')) {
 
     }
 } else {
-    $result = '<h1>Du har allerede en config fil.</h1>';
+    $result = '<div class="alert alert-success">Dit website er allerede installeret!<br> Klik <a href="index.php">her</a> for at komme dertil!</div>';
 }
     ?>
 
