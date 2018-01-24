@@ -40,7 +40,7 @@ if(!file_exists('./config.php')) {
                 $switch = $pages->dynamicSwitch($_GET['p']);
                 switch ($get['p']) {
                     case ''.$switch->page_link.'':
-                        include_once './partials/'.$switch->pagesetting_filename.'.php';
+                        include_once './partials/'.$switch->pagesettings_filename.'.php';
                         break;
 
 

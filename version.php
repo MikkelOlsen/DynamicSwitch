@@ -1,7 +1,7 @@
 <?php 
     exec('git log -1',$line);
 
-    $myVersion = "    V 0.1.3 (Alpha)";
+    $myVersion = "    V 0.1.4 (Alpha)";
     $newVersion = $line[4];
     if($myVersion !== $newVersion) {
         $versionError = '<div class="alert alert-warning">Der findes en nyere version</div>';

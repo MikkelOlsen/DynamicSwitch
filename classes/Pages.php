@@ -29,7 +29,7 @@ class Pages extends \PDO
      */
     public function dynamicSwitch(string $link) : stdClass
     {
-        return $this->db->single("SELECT pages.page_link, pagesettings.pagesetting_filename
+        return $this->db->single("SELECT pages.page_link, pagesettings.pagesettings_filename
                           FROM pages
                           INNER JOIN pagesettings
                           ON pages.fk_pageSettings = pagesettings.pagesettings_id
@@ -105,7 +105,7 @@ class Pages extends \PDO
             $lowerPageName = strtolower($pageName);
             $nospacesPageName = str_replace(' ', '', $lowerPageName);
 
-            $pageSettings = $this->db->lastId("INSERT INTO pagesettings (pagesetting_filename) VALUES (:filename)", [':filename' => $nospacesPageName]);
+            $pageSettings = $this->db->lastId("INSERT INTO pagesettings (pagesettings_filename) VALUES (:filename)", [':filename' => $nospacesPageName]);
             $this->db->query("INSERT INTO pages (page_title, page_link, fk_pageSettings) VALUES (:title, :link, :settings)", [':title' => $ucFirstPageName, ':link' => $nospacesPageName, ':settings' => $pageSettings]);
     
             return true;
