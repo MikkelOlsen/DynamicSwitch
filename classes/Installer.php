@@ -15,6 +15,40 @@ class Installer
         return false;
     }
 
+    public function checkDB(string $dbName)
+    {
+        try{
+            $dbName = strtolower($_POST['db_name']);
+            $dbName = str_replace(' ', '', $dbName);
+            $dbCheck = $this->conn->prepare("SHOW DATABASES LIKE :dbname");
+            $dbCheck->execute([':dbname' => $dbName]);
+            if($dbCheck->rowCount() == 0) {
+                return true;
+            } 
+            return false;
+        } catch(PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getDBs() 
+    {
+        try{
+            $dbcheck = $this->conn->query("SHOW DATABASES 
+                                        WHERE `Database` 
+                                        NOT LIKE 'mysql' 
+                                        AND `Database` NOT LIKE 'sys'
+                                        AND `Database` NOT LIKE 'phpmyadmin'
+                                        AND `Database` NOT LIKE 'performance_schema'
+                                        AND `Database` NOT LIKE 'information_schema'");
+            return $dbcheck->fetchAll();
+        } catch(PDOException $e) {
+            return false;
+        }
+        return false;
+
+    }
+
     public function createConfig(array $post)
     {
         

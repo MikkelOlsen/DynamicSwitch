@@ -16,3 +16,7 @@ nav.navbar {
     background-color: rgba(48, 45, 45, 0.5);
     border-bottom: 2px solid red;
 }
+
+.hidden {
+    display: none;
+}
